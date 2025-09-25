@@ -49,20 +49,20 @@ function extractTopRows(md, count = 5) {
   return rows;
 }
 
-// function quickLinks() {
-//   const cells = FILES.map(info => {
-//     const badge = makeBadgeURL(info.app, info.env, info.color);
-//     return `<td width="25%"><a href="#${info.anchor}"><img alt="${info.app} ${info.env}" src="${badge}"/></a></td>`;
-//   }).join("\n    ");
-//   return `
-// ## 🔗 Nhanh: Tới file log
+function quickLinks() {
+  const cells = FILES.map(info => {
+    const badge = makeBadgeURL(info.app, info.env, info.color);
+    return `<td width="25%"><a href="#${info.anchor}"><img alt="${info.app} ${info.env}" src="${badge}"/></a></td>`;
+  }).join("\n    ");
+  return `
+## 🔗 Nhanh: Tới file log
 
-// <table>
-//   <tr>
-//     ${cells}
-//   </tr>
-// </table>`;
-// }
+<table>
+  <tr>
+    ${cells}
+  </tr>
+</table>`;
+}
 
 function sectionFor(info) {
   const abs = path.join(LOG_DIR, info.file);
@@ -94,7 +94,7 @@ function buildREADME() {
 
 <h1 align="center">📦 LPMS – Build Apps Logs</h1>
 
-> Bên dưới là <strong>5 dòng gần nhất</strong> của mỗi ứng dụng.
+> Bên dưới là <strong>5 dòng gần nhất</strong> của mỗi ứng dụng. Click ở mục <em>“Nhanh: Tới file log”</em> để cuộn xuống bảng; trong mỗi block có nút <em>“Xem đầy đủ”</em> để mở file gốc.
 `;
 
   const sections = FILES.map(sectionFor).join("\n---\n");
@@ -103,12 +103,11 @@ function buildREADME() {
 ---
 
 <p align="center">
-  <sub>Latest-first · Made by ĐỖ HÙNG</sub>
+  <sub>Latest-first · Made for MAFC</sub>
 </p>
 `;
 
-  // return [header, quickLinks(), sections, footer].join("\n\n");
-  return [header, sections, footer].join("\n\n");
+  return [header, quickLinks(), sections, footer].join("\n\n");
 }
 
 function main() {
